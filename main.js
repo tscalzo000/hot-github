@@ -1,15 +1,45 @@
 let active = '';
+let today = new Date();
+
+let lastMonth = new Date();
+lastMonth.setMonth(today.getMonth()-1);
+let lastMonthYear = lastMonth.getFullYear();
+let lastMonthDay = lastMonth.getDate();
+let lastMonthMonth = lastMonth.getMonth()+1;
+if (lastMonthDay < 10) {
+    lastMonthDay = ('0' + lastMonthDay);
+}
+if (lastMonthMonth < 10) {
+    lastMonthMonth = ('0' + lastMonthMonth);
+}
+let lastMonthFormat = lastMonthYear + '-' + lastMonthMonth + '-' + lastMonthDay;
+
+let lastYear = new Date();
+lastYear.setFullYear(today.getFullYear() - 1);
+let lastYearYear = lastYear.getFullYear();
+let lastYearDay = lastYear.getDate();
+let lastYearMonth = lastYear.getMonth()+1;
+if (lastYearDay < 10) {
+    lastYearDay = ('0' + lastYearDay);
+}
+if (lastYearMonth < 10) {
+    lastYearMonth = ('0' + lastYearMonth);
+}
+let lastYearFormat = lastYearYear + '-' + lastYearMonth + '-' + lastYearDay;
+
+let urlRepo = 'https://api.github.com/search/repositories?q=created:>=' + lastMonthFormat + '&sort:stars&order:desc&per_page=100';
+let urlUser = 'https://api.github.com/search/users?q=created:>=' + lastYearFormat + '&sort:followers&order:desc&per_page=100';
 
 function repoRefresh() {
   if ((active === '') || (active == 'users')) {
     active = 'repos';
     stopFunction();
-    document.getElementById('title').innerHTML = 'Hottest Repos';
+    document.getElementById('title').innerHTML = 'Hottest Repos (in the past month by stars)';
     document.getElementById('one').innerHTML = 'ID';
     document.getElementById('two').innerHTML = 'Name';
     document.getElementById('three').innerHTML = 'Stars';
     document.getElementById('four').innerHTML = 'Description';
-    fetch ('https://api.github.com/search/repositories?q=created:>=2017-03-12&sort:stars&order:desc')
+    fetch (urlRepo)
     .then(response => {
       if (response.ok) {
         return response;
@@ -47,12 +77,12 @@ let myVar = '';
 function userRefresh() {
   if ((active === '') || (active == 'repos')) {
     active = 'users';
-    document.getElementById('title').innerHTML = 'Hottest Users';
+    document.getElementById('title').innerHTML = 'Hottest Users (in the past year by followers)';
     document.getElementById('one').innerHTML = 'Avatar';
     document.getElementById('two').innerHTML = 'ID';
     document.getElementById('three').innerHTML = 'Login';
     document.getElementById('four').innerHTML = 'Followers';
-    fetch ('https://api.github.com/search/users?q=created:>=2016-04-12&sort:followers&order:desc')
+    fetch (urlUser)
     .then(response => {
       if (response.ok) {
         return response;
