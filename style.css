@@ -1,0 +1,32 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Slab|Roboto|Inconsolata);
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Roboto Slab", Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+body {
+  font-family:  Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #646464;
+  background-color: #F6F6F7;
+  margin: 0 10%;
+  font-size: 16px;
+}
+
+div {
+  border-radius: 5px;
+}
+
+#main {
+  background-color: #E0F0F1;
+  margin: 1ex 0;
+  padding: 1ex 0;
+  text-align: center;
+}
+
+#one, #two, #three, #four {
+  font-size: 20px;
+}
+
+table {
+  padding: 0 5%;
+}
